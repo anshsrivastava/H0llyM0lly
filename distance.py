@@ -70,13 +70,14 @@ def luminosity_dist(z,omega_m,omega_a,H_0,number_steps=10000,method='s'):
 #         
 
 def distance_modulus(z,omega_m,omega_a,H_0, number_steps=10000,Mpc=True):
+
     luminosity_distance = luminosity_dist(z,omega_m,omega_a,H_0,number_steps)
     # to-do: check consistency of units
     if Mpc:
 
-        return 5*np.log(luminosity_distance) + 25  
+        return 5*np.log10(luminosity_distance) + 25  
     else: 
-        return 5*np.log(luminosity_distance/10) # Assumed pc unit
+        return 5*np.log10(luminosity_distance/10) # Assumed pc unit
 
 
 def test_trapezoidal_vectorization():
