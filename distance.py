@@ -56,24 +56,27 @@ def luminosity_dist(z,omega_m,omega_a,H_0,number_steps=10000,method='s'):
     #Use Simpson's method by default 
     else:
         d_c = d_h*simpsons(z,omega_m,omega_a,number_steps)
-    # integral value
-    #1.504993571457544*c*1E-3/H_0*(1+z)
+
     
     if omega_k>0:
-        return d_h*np.sinh(np.sqrt(omega_k)*d_c/d_h)/np.sqrt(omega_k)*(1+z)
+        return d_h*(1+z) * np.sinh( np.sqrt(omega_k) * d_c/d_h ) / np.sqrt(omega_k)
     
     elif omega_k==0:
         return d_c*(1+z)
     
     else:
-        return d_h*np.sin(np.sqrt(abs(omega_k))*d_c/d_h)/np.sqrt(abs(omega_k))*(1+z)
+        return d_h*(1+z) * np.sin( np.sqrt(-omega_k) * d_c/d_h ) / np.sqrt(-omega_k)
 
 #         
 
-def distance_modulus(z,omega_m,omega_a,H_0, number_steps=10000):
+def distance_modulus(z,omega_m,omega_a,H_0, number_steps=10000,Mpc=True):
     luminosity_distance = luminosity_dist(z,omega_m,omega_a,H_0,number_steps)
     # to-do: check consistency of units
-    return 5*np.log(luminosity_distance/10) 
+    if Mpc:
+
+        return 5*np.log(luminosity_distance) + 25  
+    else: 
+        return 5*np.log(luminosity_distance/10) # Assumed pc unit
 
 
 def test_trapezoidal_vectorization():
@@ -87,5 +90,5 @@ def test_luminosity_dist_3():
     print(luminosity_dist(3,.286,.714,69.6,100,"s"))
     print("Reference value:", 25924.3)
 
-test_trapezoidal_vectorization()
-test_luminosity_dist_3()
+# test_trapezoidal_vectorization()
+# test_luminosity_dist_3()
