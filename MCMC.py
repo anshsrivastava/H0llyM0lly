@@ -13,7 +13,7 @@ def log_likelihood(pars,z_data,m_b,cov_matrix,number_steps=100, M=-19.2):
     
     omega_m, omega_a ,H_0 = pars
     
-    mu_model=distance_modulus(z_data,omega_m,omega_a,H_0,number_steps)
+    mu_model = distance_modulus(z_data,omega_m,omega_a,H_0,number_steps)
     m_model = mu_model+M
 
     inv_cov=np.linalg.inv(cov_matrix)
