@@ -1,6 +1,7 @@
 # MCMC code
 
 import numpy as np
+import math
 from distance import *
 
 def log_priors(pars):
@@ -14,6 +15,11 @@ def log_likelihood(pars,z_data,m_b,cov_matrix,number_steps=100, M =-19.2):
     omega_m, omega_a ,H_0 = pars
     
     mu_model = distance_modulus(z_data,omega_m,omega_a,H_0,number_steps)
+    
+    for i in range(len(mu_model)):
+        if math.isnan(mu_model[i]):
+            return -np.inf
+        
     m_model = mu_model+M
 
     inv_cov=np.linalg.inv(cov_matrix)
