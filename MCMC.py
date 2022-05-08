@@ -15,7 +15,7 @@ def log_likelihood(pars,z_data,m_b,cov_matrix,number_steps=100, M =-19.2):
     
     mu_model = distance_modulus(z_data,omega_m,omega_a,H_0,number_steps)
     
-    if np.isnan(mu_model).any:
+    if np.isnan(mu_model).any():
         return -np.inf 
 
     m_model = mu_model+M
@@ -32,7 +32,7 @@ def log_posterior(pars,x,y,cov):
     return log_likelihood(pars,x,y,cov) + log_priors(pars)
 
 
-def generator(Omega, cov = 0.1 * np.identity(3)):
+def generator(Omega, cov = 0.1**2. * np.identity(3)):
 
     return np.random.multivariate_normal(Omega, cov)
 
