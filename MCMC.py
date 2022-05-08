@@ -6,7 +6,7 @@ from distance import *
 def log_priors(pars):
     omega_m,omega_a,H0 = pars
     logp = -np.inf
-    logp = 0 if (omega_m > 0 and omega_a >0) else logp
+    logp = 0 if (omega_m > 0 and omega_a >0 and H0>0) else logp
     return logp    
 
 def log_likelihood(pars,z_data,m_b,cov_matrix,number_steps=100, M =-19.2):
