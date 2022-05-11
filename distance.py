@@ -79,17 +79,5 @@ def distance_modulus(z,omega_m,omega_a,H_0, number_steps=10000,Mpc=True):
     else: 
         return 5*np.log10(luminosity_distance/10) # Assumed pc unit
 
-
-def test_trapezoidal_vectorization():
-    zs = np.array([1,2,3])
-    for z, output in zip(zs, trapezoidal(zs,1,1,5)):
-        assert output == trapezoidal(z,1,1,5)
-    print('looks good')
-
-
-def test_luminosity_dist_3():
-    print(luminosity_dist(3,.286,.714,69.6,100,"s"))
-    print("Reference value:", 25924.3)
-
 # test_trapezoidal_vectorization()
 # test_luminosity_dist_3()
