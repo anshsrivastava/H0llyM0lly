@@ -3,6 +3,9 @@ from MCMC import *
 import random 
 
 def test_trapezoidal_vectorization():
+    '''
+    Tests the trapezoidal() function from distance.py
+    '''
     zs = np.array([1,2,3])
     for z, output in zip(zs, trapezoidal(zs,1,1,5)):
         assert output == trapezoidal(z,1,1,5)
@@ -26,4 +29,4 @@ def test_priors():
     assert log_priors([-1 * random.randint(1, 231213), -1 * random.randint(1, 231213), 1 * random.randint(1, 231213)])== float('-inf')
     assert log_priors([1 * random.randint(1, 231213), -1 * random.randint(1, 231213), -1 * random.randint(1, 231213)])== float('-inf')
     assert log_priors([-1 * random.randint(1, 231213), 1 * random.randint(1, 231213), -1 * random.randint(1, 231213)])== float('-inf')
-    print('7 test cases passed for log_priors') 
+    print('7 out of 7 test cases passed for log_priors') 
