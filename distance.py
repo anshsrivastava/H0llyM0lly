@@ -82,6 +82,3 @@ def distance_modulus(z,omega_m,omega_a,H_0, number_steps=10000,Mpc=True):
         return 5*np.log10(luminosity_distance) + 25  
     else: 
         return 5*np.log10(luminosity_distance/10) # Assumed pc unit
-
-# test_trapezoidal_vectorization()
-# test_luminosity_dist_3()

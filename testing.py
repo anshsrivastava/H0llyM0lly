@@ -3,6 +3,8 @@ from MCMC import *
 import random 
 import numpy as np
 
+#### TESTS FOR distance.py
+
 def test_simpsons():
     '''
     Tests the simpsons() function from distance.py
@@ -37,19 +39,6 @@ def test_luminosity_dist_3():
     assert np.abs(luminosity_dist(3,.286,.714,69.6,100,"s") - 25924.3) < 100
     print('luminosity distance looks good')
 
-def test_priors():
-    '''
-    Tests the log_priors(pars) function in MCMC.py
-    '''
-    assert log_priors([1 * random.randint(1, 231213), 1 * random.randint(1, 231213), 1 * random.randint(1, 231213)])== 0 
-    assert log_priors([-1 * random.randint(1, 231213), 1 * random.randint(1, 231213), 1 * random.randint(1, 231213)])== float('-inf')
-    assert log_priors([1 * random.randint(1, 231213), -1 * random.randint(1, 231213), 1 * random.randint(1, 231213)])== float('-inf')
-    assert log_priors([1 * random.randint(1, 231213), 1 * random.randint(1, 231213), -1 * random.randint(1, 231213)])== float('-inf')
-    assert log_priors([-1 * random.randint(1, 231213), -1 * random.randint(1, 231213), 1 * random.randint(1, 231213)])== float('-inf')
-    assert log_priors([1 * random.randint(1, 231213), -1 * random.randint(1, 231213), -1 * random.randint(1, 231213)])== float('-inf')
-    assert log_priors([-1 * random.randint(1, 231213), 1 * random.randint(1, 231213), -1 * random.randint(1, 231213)])== float('-inf')
-    print('7 out of 7 test cases passed for log_priors') 
-    
 def test_integrand():
     '''
     Tests integrand from distance.py
@@ -62,6 +51,33 @@ def test_integrand():
         v = omega_m*(1+z)**3 + omega_k*(1+z)**2 + omega_a # parameter that must be greater than 0
         if v > 0.001: # Avoiding division by zero and imaginary integrand eventough it is almost impossible
             assert np.abs(np.sqrt(1/v) - integrand(z, omega_k, omega_m, omega_a))<0.001 # Checking against a 0.001 tolerance
-    print("Passed 5 out of 5 test cases for integrand")
-        
-        
+    print("Passed 5 out of 5 tests for integrand")
+    
+def test_distance_modulus():
+    '''
+    Tests distance_modulus from distance.py
+    '''
+    z = 42
+    omega_m = 42
+    omega_a = 42
+    H_0 = 42
+    calculated_distance_modulus = 5*np.log10(luminosity_dist(z, omega_m, omega_a, H_0)) + 25
+    assert np.abs(distance_modulus(z, omega_m, omega_a, H_0) - calculated_distance_modulus) < 0.0001 # Comparing with a 0.0001 tolerance
+    print("Passed 1 out of 1 test cases for distance_modulus")
+    
+    
+#### TESTS FOR MCMC.py
+
+
+def test_priors():
+    '''
+    Tests the log_priors(pars) function in MCMC.py
+    '''
+    assert log_priors([1 * random.randint(1, 231213), 1 * random.randint(1, 231213), 1 * random.randint(1, 231213)])== 0 
+    assert log_priors([-1 * random.randint(1, 231213), 1 * random.randint(1, 231213), 1 * random.randint(1, 231213)])== float('-inf')
+    assert log_priors([1 * random.randint(1, 231213), -1 * random.randint(1, 231213), 1 * random.randint(1, 231213)])== float('-inf')
+    assert log_priors([1 * random.randint(1, 231213), 1 * random.randint(1, 231213), -1 * random.randint(1, 231213)])== float('-inf')
+    assert log_priors([-1 * random.randint(1, 231213), -1 * random.randint(1, 231213), 1 * random.randint(1, 231213)])== float('-inf')
+    assert log_priors([1 * random.randint(1, 231213), -1 * random.randint(1, 231213), -1 * random.randint(1, 231213)])== float('-inf')
+    assert log_priors([-1 * random.randint(1, 231213), 1 * random.randint(1, 231213), -1 * random.randint(1, 231213)])== float('-inf')
+    print('7 out of 7 test cases passed for log_priors') 

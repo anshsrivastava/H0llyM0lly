@@ -23,17 +23,12 @@ def log_likelihood(pars,z_data,m_b,inv_cov,number_steps=100, M =-19.2):
     Returns the logarithm of the likelihood.
     '''
     omega_m, omega_a ,H_0 = pars
-    
     mu_model = distance_modulus(z_data,omega_m,omega_a,H_0,number_steps)
-    
     if np.isnan(mu_model).any():
         return -np.inf 
-
     m_model = mu_model+M
-    
     residual = m_b-m_model
     result = -(np.dot( np.dot(residual, inv_cov) ,residual ))/2.
-    
     return result
 
 def log_posterior(pars,x,y,inv_cov):
@@ -62,7 +57,6 @@ def MCMC(seed,x,y,inv_cov,cov_gen=1):
     cov is the covariance matrix
     cov_gen is the meta-parameter controlling the width of the gaussian in the generator function.
     '''
-
     new = generator(seed,cov_gen)
     Pnew = log_posterior(new,x,y,inv_cov)
     Pold = log_posterior(seed,x,y,inv_cov)
@@ -83,13 +77,10 @@ def run_MCMC(x,y,cov,p0,cov_gen=1,nsteps = 1000):
     Runs the MCMC code and returns the chain
     '''
     inv_cov=np.linalg.inv(cov)
-
     chain = np.zeros((nsteps,len(p0)))
     seed = p0
     for i in range(nsteps):
-
        sprout =  MCMC(seed,x,y,inv_cov,cov_gen)
        chain[i] =  sprout
        seed = sprout
-
     return chain
