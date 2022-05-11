@@ -57,10 +57,10 @@ def test_distance_modulus():
     '''
     Tests distance_modulus from distance.py
     '''
-    z = 42
-    omega_m = 42
-    omega_a = 42
-    H_0 = 42
+    z = 2
+    omega_m = 2
+    omega_a = 2
+    H_0 = 2
     calculated_distance_modulus = 5*np.log10(luminosity_dist(z, omega_m, omega_a, H_0)) + 25
     assert np.abs(distance_modulus(z, omega_m, omega_a, H_0) - calculated_distance_modulus) < 0.0001 # Comparing with a 0.0001 tolerance
     print("Passed 1 out of 1 test cases for distance_modulus")
