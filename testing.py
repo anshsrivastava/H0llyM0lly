@@ -49,3 +49,19 @@ def test_priors():
     assert log_priors([1 * random.randint(1, 231213), -1 * random.randint(1, 231213), -1 * random.randint(1, 231213)])== float('-inf')
     assert log_priors([-1 * random.randint(1, 231213), 1 * random.randint(1, 231213), -1 * random.randint(1, 231213)])== float('-inf')
     print('7 out of 7 test cases passed for log_priors') 
+    
+def test_integrand():
+    '''
+    Tests integrand from distance.py
+    '''
+    for i in range(0, 5):
+        z = random.uniform(0, 10)
+        omega_k = random.uniform(0, 10)
+        omega_m = random.uniform(0, 10)
+        omega_a = random.uniform(0, 10)
+        v = omega_m*(1+z)**3 + omega_k*(1+z)**2 + omega_a # parameter that must be greater than 0
+        if v > 0.001: # Avoiding division by zero and imaginary integrand eventough it is almost impossible
+            assert np.abs(np.sqrt(1/v) - integrand(z, omega_k, omega_m, omega_a))<0.001 # Checking against a 0.001 tolerance
+    print("Passed 5 out of 5 test cases for integrand")
+        
+        
