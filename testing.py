@@ -90,5 +90,5 @@ def test_generator():
     '''
     Omega = [1,2,3]
     numpyres = np.random.multivariate_normal(Omega, 0.01 * np.identity(3))
-    assert np.allclose(generator(Omega), numpyres) # Checking if the arrays are close
+    assert np.allclose(generator(Omega), numpyres, rtol = 1E-2, atol = 0.5) # Checking if the arrays are close
     print("1 test case passed for generator")
